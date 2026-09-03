@@ -1,0 +1,79 @@
+# Maven 目标目录
+**/target/
+**/mvnw
+**/mvnw.cmd
+**/.mvn/
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/pom.xml.next
+**/release.properties
+**/dependency-reduced-pom.xml
+**/buildNumber.properties
+
+# 日志文件
+logs/
+*.log
+log/
+**/log/
+**/*.log
+**/*.log.*
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+~*
+
+# IDE文件
+## IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+**/.idea/
+**/*.iml
+
+file/**
+
+## Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+## VS Code
+.vscode/
+.settings.json
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编译输出
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# 生成源代码目录
+**/generated-sources/
+
+# 本地配置文件（不提交敏感信息）
+**/application-local.yml
+**/application-dev.yml
+**/*.properties.local
+
+# 上传的文件目录（根据您的项目，这可能是运行时生成的）
+file/**
+
+# 系统文件
+dump.rdb
+*.pid
+*.seed
+*.pid.lock

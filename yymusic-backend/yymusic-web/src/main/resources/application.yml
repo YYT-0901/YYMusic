@@ -1,0 +1,167 @@
+server:
+  domain: http://localhost:8090
+  port: 8090
+  servlet:
+    context-path: /api
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/yymusic?allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&characterEncoding=utf8
+    username: root
+    password: MySQL@4869
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      database: 0
+      host: localhost
+      port: 6379
+      timeout: 5000 # 增加超时时间，避免短超时导致连接断开
+      lettuce:
+        pool:
+          max-active: 10 # 减少最大活跃连接，避免连接数过多
+          max-wait: 2000ms # 明确单位，避免默认值异常
+          max-idle: 5
+          min-idle: 2
+          time-between-eviction-runs: 60s # 延长空闲检查间隔
+          test-while-idle: true # 空闲时检测连接可用性
+          test-on-borrow: false # 借用时不检测（减少性能损耗，依赖idle检测）
+          test-on-return: false
+  task:
+    scheduling:
+      pool:
+        size: 5
+  ai:
+    chat:
+      client:
+        enabled: false
+    openai:
+      api-key: sk-yytmiyao  # 填入你的 API Key
+      base-url: http://localhost:8080
+      chat:
+        options:
+          model: gpt-5.4
+    ollama:
+      base-url: http://127.0.0.1:11434
+      chat:
+        options:
+          num-ctx: 8192
+          model: qwen3:8b
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+#项目目录
+project:
+  folder: D:\\STUDY\\beijing_universiti_folder8\\source_code\\yymusic-backend\\
+
+# OSS 配置
+oss:
+  type: local  # 存储类型: minio, remote, local
+  # MinIO 配置
+  minio:
+    endpoint: http://localhost:9000
+    access-key: minioadmin
+    secret-key: minioadmin
+    bucket-name: yymusic
+    custom-domain:
+  # Remote (FTP) 配置
+  remote:
+    ftp-host: localhost
+    ftp-port: 21
+    ftp-username: ftpuser
+    ftp-password: ftppassword
+    # 文件存储路径 请注意下，mac用户请使用 /Users/your-username/your-path/，否则会有权限问题，windows用户请使用 D:/your-path/
+    storage-path: /yymusic/
+  # Local 本地存储配置
+  local:
+    storage-path: D:\\STUDY\\beijing_universiti_folder8\\source_code\\yymusic-backend\\file
+    domain: http://localhost:8090/api/file/getResource?filePath=
+
+#日志级别配置
+log:
+  root:
+  level: debug
+
+#域名
+web:
+  domain: http://localhost:3000
+
+yymusic:
+  ai:
+    default-provider: openai
+    knowledge-provider: ollama
+  async:
+    background-executor:
+      core-pool-size: 4
+      max-pool-size: 4
+      queue-capacity: 16
+      keep-alive-seconds: 60
+    comfy-create-executor:
+      core-pool-size: 4
+      max-pool-size: 8
+      queue-capacity: 200
+      keep-alive-seconds: 60
+    mvc-executor:
+      core-pool-size: 4
+      max-pool-size: 16
+      queue-capacity: 200
+      keep-alive-seconds: 60
+    mvc-default-timeout-ms: 120000
+
+# 接口key
+tianpuyue:
+  api:
+    key: xxx #ai接口key
+    domain: http://easyshop.byte361.com/api #https://api.tianpuyue.cn
+
+comfyUi:
+  domain: 127.0.0.1:8189
+
+# 微信支付
+pay:
+  wechat:
+    appid: xxx  #微信支付应用ID
+    mchid: xxx  #微信支付商户ID
+    serialNo: xxx  #微信支付证书编号
+    apiclientKeypath: xxx/apiclient_key.pem  #微信证书文件
+    apiV3key: xxx  #apiv3 签名密钥
+    payDomain: https://api.mch.weixin.qq.com
+  alipay:
+    appId: 9021000137692301 # APPID(必填)
+    appPrivateKey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCLtZ71EQU/4P6PbIUQhDuoq4YVpWDvWKzsq9KXBkqpPcDDjfoB0JJqaL+2ZbveSdBpXRqHh5iw0/yRQAxZxMb1+U1A18zs65LWsErzsouWY4j99u5QnZ0yR/IfwLLVJ/cl4TCh9l+HLKsoN0XAd/Jf3tcwj3WSWmi2dO9L05Nmarj1EZGUzc8XRluoLUVPybSqmLc4wxkTH4/dJ0lAKGLNd8m82wx1veZQSWfTQUdlQGY5/3bWkIoopoUjS1+aaZ9vCLNOLdU/6Cfo/0CQUQb4jHeuT8zV2GEPPMADpO0Kxq9IYAA2gs6FKZej80MD3QVoFfGk/745jMbx9Y5iPIpZAgMBAAECggEATPPTBGVFoPPLAzDg8kIDolon1tBq3irXxNy3eBwtD59GB/Cx3kIGA7qCrnLG0h+SPhbcP/5+Khf5q/+9TczHUkDpPmgfJfhzvvEHt8eGf2V/1XMnvRuztDhQsxCu8B29Ug4BfZR49bmy5MndD7CBvjC+Eq9SMTS/LJCoJfn53JTnuy1nNUp0+eqPsVUd1WKqPynea6sS7JqOyWakN1cguIVLgveIW3xzNaDssfhuRl7zm054ywNi0sfkiFDMNP2skKuNrtMssW0RVzrEmodSTsgLurPTS8q4sm4IAILZsvHmKHrg4f3ovWZJjS7IAPTzomSjFQ6GAphOTcxAPyh6IQKBgQDBhK1gjJ76SIGYtlszw/+r9bxxf2k4BXMlMX+t1layNgz66erBS5Au0UpXubo3zjKIQ7/LTz0wdrpfF5cKorkXc6R+ukp4oq6L+VXUWKO73yZ0u237ttFg3Bxp5bzWe5Jmv8e4aQQ0nJEqNqVOorQg2TbXQ+WNgLS6+Jk2MRQxRQKBgQC40VtPUr+hP2PG2IomPINx3XBdzAGRWANznuS9vOILB1cJJSdUsF0vNIgLwNC283OidbddZQ6EuhZOo0LUuIfiVEPdPxtKijwg3OVoCc7CwF2N8V4bncH+ea9C9xDZr0356T+xtKADOg8Na/9MTjtl8hV8ml1Fb7YDj/ya1LCEBQKBgD3w6tHZkNVJufmYfO6/0KlI+a1We+ZLkESaaGTLE2rtdBAoKVT/i8IAiYw0zY8pN/F3xf8ceNh3WEYxtc3Ysef4wvExTb75S2dQQpG6YYYz8goxKA4GwVQAgDPBLkV0vjKXNiUnsAnrB2f8n8Lgv0k4XZ5fhC1bwf2Krveyk+UFAoGAB34tZoTjUgVA5VHoH+66IYapxJO9yIe59BkQCwU6YNoWVD+WXZ+c14oYrelOTOyH1qFRIs8zDHyC5QNHdVpZ3/osmi6xy47ZKzfpcRNct5aW9GdBunrl34xNZ7iejUTHM4eaVnkNN7RF4fRr8EsHq3VqG5giiesihPh0dE6FLYUCgYB3jXDDpkS26Z+UfV6GZCrQ0CdUPpghgChao23yOAhtCPRJpeYQmrr1Tx0DSu7r5P5kOUFrw9iYNl8ELRwKGOi3hujq/JvhW0sZTsAFgbeM74/g+tCZQtv2lGRHH4543s1gXeBc+J2Gl8oeXIsme6KzTiztVaFqeimlrpgRkz3+Lw== # 应用私钥(必填)
+    alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi6hx+31ZmdoEmAljX6uUBeaUDJs2Zfa5c9cD5tvT+wHEjy/pAJvvjcCtuO8qbeyGAegYkjhE7Ou5ep+6sm1mgrM4SeQXvr11YxImHjjgQdodyOoBvoBihmkpzxNydjBzGXzdvLFlTLvN747fNE0iBGj0dTQyXpJ4SlqFJ2aknUefP4SNzu2ooA/y3+JalyqyRmzmE9QZPhy6nIJXdi3ES+aJPsr36ARipZRt1ipE1Ijgj4ZGktmC9rTsfPsLCR2sKZ1Xz6ZOALIkC2GpeNii6AQSRYBzQgz/8oHBXLCiz6sjXboCp4kcbcgJK7vAwUaioqQVyJELIk9bFzVzwbUxvwIDAQAB # 支付宝公钥(必填)
+    payDomain: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+
+#是否定时获取支付结果,音乐生成结果
+auto:
+  checkPay: false
+  checkMusic: false
+
+#支付码过期时间（分钟）
+payCode:
+  expireTimeMinute: 60
+
+springdoc:
+  api-docs:
+    enabled: true                  # 启用/禁用API文档的访问
+    path: /v3/api-docs             # 设置API文档的访问路径
+  swagger-ui:
+    path: /swagger-ui.html         # 设置Swagger UI的访问路径
+    disable-swagger-default-url: true
+    display-request-duration: true # 显示请求持续时间
+  packages-to-scan: com.yymusic.controller # 指定要扫描的包
+
+bit-agent: # 智能体相关配置
+  api-base-url: https://agent.bit.edu.cn/api/proxy/api/v1/ # 智能体API基础URL
+  api-key-polish-agent: d5hgpa6lvndc72qjgha0  # 智能体API密钥( polish 智能体)
+  api-key-lyrics-agent: d5hlbu6lvndc72qjghpg  # 智能体API密钥( lyrics 智能体)
+  api-key-lineup-agent: d74bkl6lvndc72vlsad0
+  user-id: HiAgent
+  app-key-polish-agent: d5hg1melvndc72qjgh6g # 智能体AppKey( polish 智能体)
+  app-key-lyrics-agent: d5hksiulvndc72vj26vg # 智能体AppKey( lyrics 智能体)
+  app-key-lineup-agent: d74b4mmlvndc72oeufh0

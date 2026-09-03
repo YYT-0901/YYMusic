@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+/* 移除以下旧的或错误的引入方式 */
+/* @import "tailwindcss/index.css";
+@import "tailwindcss/preflight.css";
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css"; 
+*/
+
+body {
+	@apply bg-gray-50 text-gray-800;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	@apply bg-gray-300 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+	@apply bg-gray-400;
+}
+
+.loading-active {
+	pointer-events: none;
+	opacity: 0.7;
+}
+
+.required-label::before {
+	content: "*";
+	color: #ef4444; /* text-red-500 */
+	margin-right: 4px;
+}

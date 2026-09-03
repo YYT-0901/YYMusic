@@ -1,5 +1,5 @@
 
-[封面图](yymusic-backend/img/1.png)
+！[封面图](yymusic-backend/img/1.png)
 
 # YYMusic
 
